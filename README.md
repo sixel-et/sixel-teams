@@ -1,12 +1,12 @@
-# Hubless Agent Teams with Claude Code
+# Sixel Teams
 
-**How to coordinate multiple AI agent sessions without a central orchestrator, custom harness, or API integration.**
+**Coordinate multiple AI agent sessions without a central orchestrator, custom harness, or API integration.**
 
 This is a pattern guide for building peer-to-peer agent coordination using standard tools: tmux, bash, git, and the filesystem. No framework required. We've tested this architecture over multi-day sessions with multiple concurrent Claude Code instances.
 
 ---
 
-## Why Hubless?
+## Why No Orchestrator?
 
 Most agent team frameworks (CrewAI, AutoGen, Claude's native agent teams) use a central orchestrator: one lead agent delegates to workers, collects results, and makes decisions. This works for defined workflows, but it has limitations:
 
@@ -15,7 +15,7 @@ Most agent team frameworks (CrewAI, AutoGen, Claude's native agent teams) use a 
 - **Context bottleneck.** The lead must hold the full picture in its context window.
 - **Custom infrastructure.** You need the framework's runtime, its message format, its execution model.
 
-Hubless teams flip this. Each agent session is an independent peer. They share work through the filesystem, coordinate through tmux, and persist through git. No session is special. Any session can initiate, contribute, or pass.
+Sixel Teams flip this. Each agent session is an independent peer. They share work through the filesystem, coordinate through tmux, and persist through git. No session is special. Any session can initiate, contribute, or pass.
 
 ## Architecture Overview
 
@@ -231,5 +231,7 @@ Startup checks a lock AND verifies processes are alive. Polling checks seen-IDs 
 - **Watcher must be a singleton.** Multiple watchers polling the same inbox will race on seen-IDs and status files. Run exactly one watcher. The watchdog can safely run alongside it since it only reads state.
 
 ---
+
+*Named after [sixel](https://en.wikipedia.org/wiki/Sixel) — a unit of graphical data encoded in a channel not designed for it.*
 
 *Developed and tested with Claude Code running concurrent sessions. The architecture has handled multi-day operation including sleep/wake cycles, context compaction recovery, and peer coordination without data loss.*

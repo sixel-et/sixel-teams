@@ -9,10 +9,10 @@
 
 set -euo pipefail
 
-# UPDATE THIS to point to your hubless-teams directory
-HUB_DIR="${HUB_DIR:-$HOME/hubless-teams}"
+# UPDATE THIS to point to your sixel-teams directory
+HUB_DIR="${HUB_DIR:-$HOME/sixel-teams}"
 
-MANIFEST_DIR="/tmp/hubless-manifests"
+MANIFEST_DIR="/tmp/sixel-teams-manifests"
 OUTBOUND_DIR="$HUB_DIR/state/outbound"
 
 find_claude_pid() {

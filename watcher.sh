@@ -1,5 +1,5 @@
 #!/bin/bash
-# Hubless Teams — Watcher
+# Sixel Teams — Watcher
 #
 # Polls an email inbox, stores new messages in per-email directories,
 # scans for session responses, assembles and sends replies.
@@ -280,7 +280,7 @@ check_outbound() {
 # --- Main Loop ---
 
 main() {
-    log "Hubless Teams Watcher starting"
+    log "Sixel Teams Watcher starting"
     log "Outbound dir: $OUTBOUND_DIR"
     log "Poll interval: ${POLL_INTERVAL}s"
     log "Send delay: ${SEND_DELAY}s"

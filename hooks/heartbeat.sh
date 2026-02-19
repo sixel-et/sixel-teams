@@ -9,7 +9,7 @@
 
 set -euo pipefail
 
-HEARTBEAT_DIR="/tmp/hubless-heartbeats"
+HEARTBEAT_DIR="/tmp/sixel-teams-heartbeats"
 
 find_claude_pid() {
     local pid=$$

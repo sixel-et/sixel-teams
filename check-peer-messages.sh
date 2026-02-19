@@ -1,5 +1,5 @@
 #!/bin/bash
-# Hubless Teams — Peer Message Scanner
+# Sixel Teams — Peer Message Scanner
 #
 # Usage: check-peer-messages.sh <peer-name>
 # Outputs any unread messages addressed to this peer.

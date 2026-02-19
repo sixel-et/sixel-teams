@@ -1,5 +1,5 @@
 #!/bin/bash
-# Hubless Teams — Watchdog
+# Sixel Teams — Watchdog
 #
 # Monitors heartbeat files for agent tmux sessions.
 # When a session is idle AND there are pending work items,
@@ -9,7 +9,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$SCRIPT_DIR/config.sh"
 
-OPERATOR_AWAY_FLAG="/tmp/hubless-operator-away"
+OPERATOR_AWAY_FLAG="/tmp/sixel-teams-operator-away"
 
 mkdir -p "$HEARTBEAT_DIR"
 
@@ -116,7 +116,7 @@ notify_operator_away() {
     done
 }
 
-log "Hubless Teams Watchdog starting"
+log "Sixel Teams Watchdog starting"
 log "Monitoring tmux sessions matching: ${SESSION_MATCH}"
 log "Idle threshold: ${IDLE_THRESHOLD}s"
 log "Check interval: ${CHECK_INTERVAL}s"

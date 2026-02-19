@@ -2,18 +2,18 @@
   "hooks": {
     "UserPromptSubmit": [
       {
-        "command": "/path/to/hubless-teams/hooks/heartbeat.sh",
+        "command": "/path/to/sixel-teams/hooks/heartbeat.sh",
         "description": "Touch heartbeat file on each interaction"
       }
     ],
     "SessionStart": [
       {
-        "command": "/path/to/hubless-teams/hooks/startup.sh",
+        "command": "/path/to/sixel-teams/hooks/startup.sh",
         "description": "Start hub, write manifest, check peer messages"
       },
       {
         "matcher": "compact",
-        "command": "/path/to/hubless-teams/hooks/post-compact.sh",
+        "command": "/path/to/sixel-teams/hooks/post-compact.sh",
         "description": "Re-inject state after context compaction"
       }
     ]

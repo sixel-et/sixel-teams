@@ -1,5 +1,5 @@
 #!/bin/bash
-# Hubless Teams — Response Helper
+# Sixel Teams — Response Helper
 #
 # Used by agent sessions to respond to work items.
 #

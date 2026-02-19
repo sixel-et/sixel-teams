@@ -1,5 +1,5 @@
 #!/bin/bash
-# Hubless Teams — Peer Message Send
+# Sixel Teams — Peer Message Send
 #
 # Usage: peer-send.sh <from> <to> <subject> <body> [in_reply_to]
 #

@@ -1,5 +1,5 @@
 #!/bin/bash
-# Hubless Teams — Hub Launcher
+# Sixel Teams — Hub Launcher
 #
 # Starts watcher and watchdog if not already running.
 # Safe to call multiple times (idempotent).
@@ -18,8 +18,8 @@ mkdir -p "$HEARTBEAT_DIR" "$MANIFEST_DIR"
 mkdir -p "$OUTBOUND_DIR" "$THREAD_DIR"
 
 cd "$HUB_DIR"
-nohup bash watcher.sh  >/tmp/hubless-watcher.log  2>&1 &
-nohup bash watchdog.sh >/tmp/hubless-watchdog.log 2>&1 &
+nohup bash watcher.sh  >/tmp/sixel-teams-watcher.log  2>&1 &
+nohup bash watchdog.sh >/tmp/sixel-teams-watchdog.log 2>&1 &
 
 touch "$LOCK_FILE"
-echo "[hubless-teams] Watcher and watchdog started."
+echo "[sixel-teams] Watcher and watchdog started."

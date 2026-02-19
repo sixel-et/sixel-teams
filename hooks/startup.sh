@@ -9,11 +9,11 @@
 
 set -euo pipefail
 
-# UPDATE THIS to point to your hubless-teams directory
-HUB_DIR="${HUB_DIR:-$HOME/hubless-teams}"
+# UPDATE THIS to point to your sixel-teams directory
+HUB_DIR="${HUB_DIR:-$HOME/sixel-teams}"
 
-MANIFEST_DIR="/tmp/hubless-manifests"
-HEARTBEAT_DIR="/tmp/hubless-heartbeats"
+MANIFEST_DIR="/tmp/sixel-teams-manifests"
+HEARTBEAT_DIR="/tmp/sixel-teams-heartbeats"
 
 mkdir -p "$MANIFEST_DIR" "$HEARTBEAT_DIR"
 

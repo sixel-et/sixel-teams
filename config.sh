@@ -1,11 +1,11 @@
 #!/bin/bash
-# Hubless Teams — Configuration
+# Sixel Teams — Configuration
 #
 # All scripts source this file. Edit these values for your setup.
 # Alternatively, set them as environment variables before starting.
 
 # --- Required: where this repo lives ---
-HUB_DIR="${HUB_DIR:-$HOME/hubless-teams}"
+HUB_DIR="${HUB_DIR:-$HOME/sixel-teams}"
 
 # --- Required: your email API ---
 # Your inbox API key. DO NOT commit the real value — use an env var.
@@ -21,9 +21,9 @@ PEERS_FILE="${STATE_DIR}/peers.json"
 CHAT_DIR="${HUB_DIR}/chat"
 MSG_DIR="${CHAT_DIR}/messages"
 LOG_FILE="${CHAT_DIR}/log.md"
-MANIFEST_DIR="/tmp/hubless-manifests"
-HEARTBEAT_DIR="/tmp/hubless-heartbeats"
-LOCK_FILE="/tmp/hubless-started"
+MANIFEST_DIR="/tmp/sixel-teams-manifests"
+HEARTBEAT_DIR="/tmp/sixel-teams-heartbeats"
+LOCK_FILE="/tmp/sixel-teams-started"
 
 # --- Tuning ---
 POLL_INTERVAL="${POLL_INTERVAL:-60}"          # seconds between inbox polls
