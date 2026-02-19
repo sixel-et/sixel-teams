@@ -12,7 +12,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$SCRIPT_DIR/config.sh"
 
-CLAUDE_PID="${SIXEL_PID:-$PPID}"
+CLAUDE_PID="${AGENT_PID:-$PPID}"
 
 action="${1:?Usage: respond.sh (contribute|pass|primary) <email-dir> [content] [position|subject]}"
 email_dir="${2:?Missing email directory}"

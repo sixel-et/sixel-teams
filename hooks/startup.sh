@@ -54,7 +54,7 @@ fi
 echo "=== HUB BOOTSTRAP ==="
 echo "PID: $CLAUDE_PID"
 echo "Manifest: $MANIFEST"
-echo "To respond to emails: SIXEL_PID=$CLAUDE_PID bash $HUB_DIR/respond.sh contribute <dir> \"your response\""
+echo "To respond to emails: AGENT_PID=$CLAUDE_PID bash $HUB_DIR/respond.sh contribute <dir> \"your response\""
 
 # Check for unread peer messages
 TMUX_SESSION=$(tmux display-message -p '#{session_name}' 2>/dev/null || true)

@@ -25,8 +25,8 @@ for msg in "$MSG_DIR"/*-to-"${PEER_NAME}".json; do
     [ -f "$msg" ] || continue
     basename=$(basename "$msg")
     if ! grep -qF "$basename" "$SEEN_FILE" 2>/dev/null; then
-        subject=$(python3 -c "import json; print(json.load(open('$msg')).get('subject','(no subject)'))" 2>/dev/null || echo "(unreadable)")
-        from=$(python3 -c "import json; print(json.load(open('$msg')).get('from','unknown'))" 2>/dev/null || echo "unknown")
+        subject=$(python3 -c "import json,sys; print(json.load(open(sys.argv[1])).get('subject','(no subject)'))" "$msg" 2>/dev/null || echo "(unreadable)")
+        from=$(python3 -c "import json,sys; print(json.load(open(sys.argv[1])).get('from','unknown'))" "$msg" 2>/dev/null || echo "unknown")
         echo "PEER MESSAGE from $from: $subject (file: $msg)"
         echo "$basename" >> "$SEEN_FILE"
         unread_count=$((unread_count + 1))

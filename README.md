@@ -226,6 +226,9 @@ Startup checks a lock AND verifies processes are alive. Polling checks seen-IDs 
 - **Concatenation, not reconciliation.** If two sessions write contradictory responses, the assembly is concatenation with separators. The "saw prior" field mitigates this — later responders build on earlier ones — but there's no conflict resolution.
 - **Flat trust.** All sessions running as the same user are equally trusted. Internal authentication between scripts running as the same Unix user isn't a meaningful security boundary — if one session is compromised, the user account is compromised. For multi-user or multi-agent setups, add authentication at the filesystem level (Unix permissions, separate user accounts).
 - **Security is at the perimeter.** External I/O (email, webhooks) should be authenticated and validated before work items reach the shared filesystem. The internal coordination layer trusts what's on disk. This is the same model as any application that trusts its own database.
+- **Content injected via tmux becomes agent input.** The watchdog injects email subjects and response commands into agent terminals. A malicious email subject becomes part of the agent's prompt. Your email service or external I/O layer should sanitize inputs — particularly subjects and metadata — before they reach the shared filesystem. This is a prompt injection surface by design (the doorbell IS the prompt). Defend at the perimeter, not inside the hub.
+- **Wake-up interrupts active work.** The watchdog sends Ctrl-C before injecting a wake message, which will interrupt any running command in the session. The idle threshold (default 5 minutes) provides a safety margin, but don't set it too low or you'll kill active work.
+- **Watcher must be a singleton.** Multiple watchers polling the same inbox will race on seen-IDs and status files. Run exactly one watcher. The watchdog can safely run alongside it since it only reads state.
 
 ---
 

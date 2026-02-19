@@ -59,7 +59,7 @@ if [ -n "$CLAUDE_PID" ]; then
 
     echo ""
     echo "Hub scripts: $HUB_DIR/"
-    echo "To respond to emails: SIXEL_PID=$CLAUDE_PID bash $HUB_DIR/respond.sh contribute <dir> \"your response\""
+    echo "To respond to emails: AGENT_PID=$CLAUDE_PID bash $HUB_DIR/respond.sh contribute <dir> \"your response\""
     echo ""
 
     # List pending work items

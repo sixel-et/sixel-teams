@@ -161,7 +161,7 @@ while true; do
         if [ "$email_count" -eq 1 ]; then
             subject=$(echo "$pending" | head -1 | cut -d'|' -f2)
             dir=$(echo "$pending" | head -1 | cut -d'|' -f1)
-            message="[hub $(date -u +%H:%M\ UTC)] New email (subject: ${subject}). Operator idle ${user_age}min. Dir: ${dir} — Read email.json and respond with: SIXEL_PID=${claude_pid} bash ${HUB_DIR}/respond.sh contribute ${dir} \"your response\""
+            message="[hub $(date -u +%H:%M\ UTC)] New email (subject: ${subject}). Operator idle ${user_age}min. Dir: ${dir} — Read email.json and respond with: AGENT_PID=${claude_pid} bash ${HUB_DIR}/respond.sh contribute ${dir} \"your response\""
         else
             message="[hub $(date -u +%H:%M\ UTC)] ${email_count} pending emails. Operator idle ${user_age}min. Check ${OUTBOUND_DIR}/ for unsent emails."
         fi

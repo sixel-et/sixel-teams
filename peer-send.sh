@@ -61,7 +61,7 @@ git push -q
 
 # --- Ring the doorbell ---
 if [ -f "$PEERS_FILE" ]; then
-    SESSION=$(python3 -c "import json; d=json.load(open('$PEERS_FILE')); print(d.get('$TO',{}).get('tmux_session',''))" 2>/dev/null)
+    SESSION=$(python3 -c "import json,sys; d=json.load(open(sys.argv[1])); print(d.get(sys.argv[2],{}).get('tmux_session',''))" "$PEERS_FILE" "$TO" 2>/dev/null)
     if [ -n "$SESSION" ]; then
         tmux send-keys -t "$SESSION" -l "[peer] Message from $FROM: $SUBJECT" 2>/dev/null || true
         tmux send-keys -t "$SESSION" Enter 2>/dev/null || true

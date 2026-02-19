@@ -10,7 +10,7 @@ HUB_DIR="${HUB_DIR:-$HOME/hubless-teams}"
 # --- Required: your email API ---
 # Your inbox API key. DO NOT commit the real value — use an env var.
 INBOX_API_KEY="${INBOX_API_KEY:?Set INBOX_API_KEY environment variable}"
-INBOX_API_URL="${INBOX_API_URL:-https://sixel.email/v1}"
+INBOX_API_URL="${INBOX_API_URL:?Set INBOX_API_URL environment variable (e.g. https://your-email-api.example.com/v1)}"
 
 # --- Paths (derived from HUB_DIR, usually no need to change) ---
 STATE_DIR="${HUB_DIR}/state"
