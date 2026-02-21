@@ -69,6 +69,8 @@ A bash loop that handles external I/O. It has no intelligence — it polls, stor
 
 **The key design choice:** The watcher never decides *what* to say. It only manages I/O. Agent sessions read the input, decide whether to contribute, and write their response as a file. The watcher collects and sends.
 
+**Binary content safety:** External sources may deliver binary data embedded in text fields — for example, images pasted into email bodies arrive as 200KB+ of base64 in the body field. Never store API response bodies in shell variables (they have size limits and binary data breaks jq pipelines). Write responses directly to temp files with `curl -o`, then process with `jq` reading from the file. If the watcher downloads attachments, store them as separate files on disk.
+
 The main loop is minimal:
 
 ```bash
@@ -211,6 +213,21 @@ Each response file should contain enough metadata for mechanical assembly — wh
 
 Startup checks a lock AND verifies processes are alive. Polling checks seen-IDs before processing. Peer scans check read-trackers before alerting. Every operation should be safe to repeat. Crashes will happen. Compaction will happen. Idempotency makes recovery automatic.
 
+### 11. Handle binary content safely
+
+External I/O may deliver binary data embedded in text fields — images pasted into email bodies, base64-encoded content in API responses. Never store API response bodies in shell variables — pipe directly to temp files with `curl -o`. Agent sessions reading content from the shared filesystem should read a small slice first (10 lines) and bail if it looks like base64 or binary. A session that reads 200KB of base64 into its context can enter a hot loop (catastrophic regex backtracking) and become unrecoverable without intervention.
+
+### 12. Session transcripts are surgically editable
+
+If an agent session gets stuck in a hot loop from toxic content in its context — for example, a `cat` command that dumped 500KB of base64 image data — the JSONL session file can be edited to recover:
+
+1. Find the toxic line (usually the tool result) with `grep` for the tool use ID
+2. Replace the `toolUseResult` field with a stub, preserving the correct schema: Bash results use `{"stdout": "...", "stderr": "", "interrupted": false, "isImage": false}`
+3. Also replace the persisted output file if one was created (in the session's `tool-results/` directory)
+4. The session can now resume without re-processing the toxic content
+
+This is a last resort — the better fix is preventing the toxic content from reaching the session in the first place (see #11).
+
 ## What Makes This Different
 
 - **No framework.** bash + tmux + git + filesystem. Runs anywhere Claude Code runs.
@@ -229,6 +246,7 @@ Startup checks a lock AND verifies processes are alive. Polling checks seen-IDs 
 - **Content injected via tmux becomes agent input.** The watchdog injects email subjects and response commands into agent terminals. A malicious email subject becomes part of the agent's prompt. Your email service or external I/O layer should sanitize inputs — particularly subjects and metadata — before they reach the shared filesystem. This is a prompt injection surface by design (the doorbell IS the prompt). Defend at the perimeter, not inside the hub.
 - **Wake-up interrupts active work.** The watchdog sends Ctrl-C before injecting a wake message, which will interrupt any running command in the session. The idle threshold (default 5 minutes) provides a safety margin, but don't set it too low or you'll kill active work.
 - **Watcher must be a singleton.** Multiple watchers polling the same inbox will race on seen-IDs and status files. Run exactly one watcher. The watchdog can safely run alongside it since it only reads state.
+- **Binary content hot loops.** Agent sessions that process large base64 or binary data (e.g., from a `cat` on an email containing a pasted image) can enter unrecoverable hot loops — 100% CPU, no cursor activity, no response to input. The only recovery is killing the process and surgically editing the session transcript to remove the toxic tool result (see Best Practice #12). Safety rules in shared memory files help but aren't sufficient — the content must be made safe at the I/O layer before it reaches agent sessions.
 
 ---
 
